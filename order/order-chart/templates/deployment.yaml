@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app-order.fullname" . }}
+  labels:
+    {{- include "app-order.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "app-order.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: {{ .Values.Strategy }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "app-order.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+            - name: ORDER_PAYMENT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "app-order.fullname" . }}-config
+                  key: ORDER_PAYMENT_URL
+
+            - name: ORDER_ROLLBACK_PAYMENT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "app-order.fullname" . }}-config
+                  key: ORDER_ROLLBACK_PAYMENT_URL
+
+            - name: ORDER_RESERVE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "app-order.fullname" . }}-config
+                  key: ORDER_RESERVE_URL
+
+            - name: ORDER_ROLLBACK_RESERVE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "app-order.fullname" . }}-config
+                  key: ORDER_ROLLBACK_RESERVE_URL
+
+            - name: ORDER_DELIVERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "app-order.fullname" . }}-config
+                  key: ORDER_DELIVERY_URL
+
+            - name: ORDER_ROLLBACK_DELIVERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "app-order.fullname" . }}-config
+                  key: ORDER_ROLLBACK_DELIVERY_URL

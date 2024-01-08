@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: legioner4/otis-work-order:8.1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
+
+
+ingress:
+  className: "nginx"
+
+
+app:
+  order_payment_url: "http://otus.homework.payment/api/v1/payment/process/payment/"
+  order_rollback_payment_url: "http://otus.homework.payment/api/v1/payment/rollback/payment/"
+  order_reserve_url: "http://otus.homework.stock/api/v1/stock/process/reserve/"
+  order_rollback_reserve_url: "http://otus.homework.stock/api/v1/stock/rollback/reserve/"
+  order_delivery_url: "http://otus.homework.delivery/api/v1/delivery/process/delivery/"
+  order_rollback_delivery_url: "http://otus.homework.delivery/api/v1/delivery/rollback/delivery/"

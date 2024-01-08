@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "2d9b076c-3d36-4b0c-bd2e-97e04cce6f09",
+		"name": "work8",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4420324"
+	},
+	"item": [
+		{
+			"name": "order 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.payment).to.exist;\r",
+							"    pm.expect(responseData.reserve).to.exist;\r",
+							"    pm.expect(responseData.delivery).to.exist;\r",
+							"    pm.expect(responseData.status).to.exist;\r",
+							"    pm.expect(responseData.description).to.exist;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://otus.homework/api/v1/order/creating/",
+					"protocol": "http",
+					"host": [
+						"otus",
+						"homework"
+					],
+					"path": [
+						"api",
+						"v1",
+						"order",
+						"creating",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "IDtoken",
+			"value": ""
+		}
+	]
+}

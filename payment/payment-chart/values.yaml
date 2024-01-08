@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: legioner4/otis-work-payment:8.1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
+
+
+ingress:
+  className: "nginx"

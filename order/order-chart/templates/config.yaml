@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "app-order.fullname" . }}-config
+type: Opaque
+data:
+  ORDER_PAYMENT_URL: {{ .Values.app.order_payment_url }}
+  ORDER_ROLLBACK_PAYMENT_URL: {{ .Values.app.order_rollback_payment_url }}
+  ORDER_RESERVE_URL: {{ .Values.app.order_reserve_url }}
+  ORDER_ROLLBACK_RESERVE_URL: {{ .Values.app.order_rollback_reserve_url }}
+  ORDER_DELIVERY_URL: {{ .Values.app.order_delivery_url }}
+  ORDER_ROLLBACK_DELIVERY_URL: {{ .Values.app.order_rollback_delivery_url }}
